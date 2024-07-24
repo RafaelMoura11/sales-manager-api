@@ -6,15 +6,18 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeders.
      */
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class,
+        DB::table('users')->insert([
+            'cpf' => '12345678901',
+            'name' => 'Rafael Moura',
+            'email' => 'rafael.moura@email.com',
+            'password' => Hash::make('password'),
         ]);
     }
 }
