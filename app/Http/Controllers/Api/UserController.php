@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -37,6 +38,31 @@ class UserController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Usuário não cadastrado.",
+                'error' => $e->getMessage()
+            ], 400);
+        }
+    }
+
+    public function update(UpdateUserRequest $request): JsonResponse {
+        DB::beginTransaction();
+        try {
+            $user = User::where('cpf', $request->cpf)->firstOrFail();
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password ? Hash::make($request->password) : $user->password,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'user' => $user,
+                'message' => "Usuário atualizado com sucesso."
+            ], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => "Usuário não atualizado.",
                 'error' => $e->getMessage()
             ], 400);
         }
