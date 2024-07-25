@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,7 +17,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function register(Request $request): JsonResponse {
+    public function register(UserRequest $request): JsonResponse {
         DB::beginTransaction();
         try {
             $user = User::create([
