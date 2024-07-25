@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -63,6 +64,23 @@ class UserController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Usuário não atualizado.",
+                'error' => $e->getMessage()
+            ], 400);
+        }
+    }
+
+    public function delete(DeleteUserRequest $request) : JsonResponse {
+        try {
+            $user = User::where('cpf', $request->cpf)->firstOrFail();
+            $user->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Usuário deletado com sucesso."
+            ], 200);
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Usuário não apagado.",
                 'error' => $e->getMessage()
             ], 400);
         }
