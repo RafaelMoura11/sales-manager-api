@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cpf' => 'required|unique:users,cpf',
+            'cpf' => 'required|size:11|unique:users,cpf',
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
@@ -36,6 +36,7 @@ class UserRequest extends FormRequest
     {
         return [
             'cpf.required' => 'Campo cpf é obrigatório',
+            'cpf.size' => 'Campo cpf deve ter exatamente 11 dígitos',
             'cpf.unique' => 'Campo cpf deve ser único',
             'name.required' => 'Campo name é obrigatório',
             'email.required' => 'Campo email é obrigatório',
