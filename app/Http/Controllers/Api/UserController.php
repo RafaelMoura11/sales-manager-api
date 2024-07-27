@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteUserRequest;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -83,6 +85,23 @@ class UserController extends Controller
                 'message' => "Usuário não apagado.",
                 'error' => $e->getMessage()
             ], 400);
+        }
+    }
+
+    public function login(LoginUserRequest $request) {
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            $token = $request->user()->createToken('api-token')->plainTextToken;
+            return response()->json([
+                'status' => true,
+                'token' => $token,
+                'message' => "Logado :)"
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => "Email e/ou senha incorreto(s)."
+            ]);
         }
     }
 }
