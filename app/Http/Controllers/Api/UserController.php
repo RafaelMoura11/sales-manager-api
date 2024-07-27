@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\LogoutUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -88,7 +89,7 @@ class UserController extends Controller
         }
     }
 
-    public function login(LoginUserRequest $request) {
+    public function login(LoginUserRequest $request) : JsonResponse {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $token = $request->user()->createToken('api-token')->plainTextToken;
@@ -102,6 +103,24 @@ class UserController extends Controller
                 'status' => false,
                 'message' => "Email e/ou senha incorreto(s)."
             ]);
+        }
+    }
+
+    public function logout(LogoutUserRequest $request) {
+        try {
+            $user = User::where('cpf', $request->cpf)->firstOrFail();
+            $user->tokens()->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "Usuário deslogado com sucesso.",
+            ], 200);
+
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Usuário não foi deslogado.",
+                'error' => $e->getMessage()
+            ], 400);
         }
     }
 }
