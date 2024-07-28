@@ -15,9 +15,12 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'cpf' => '12345678901',
-            'name' => 'Rafael Moura',
-            'email' => 'rafael.moura@email.com',
-            'password' => Hash::make('password'),
+            'name' => 'Admin',
+            'email' => 'admin@email.com',
+            'password' => Hash::make('admin123'),
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }
