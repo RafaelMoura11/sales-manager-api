@@ -30,7 +30,7 @@ class ProductController extends Controller
             return response()->json($product);
         }
 
-        return response()->json(['message' => 'Product not found'], 404);
+        return response()->json(['message' => 'Produto não encontrado'], 404);
     }
 
     public function update(UpdateProductRequest $request, $id)
@@ -38,7 +38,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+            return response()->json(['message' => 'Produto não encontrado'], 404);
         }
 
         $product->update($request->all());
@@ -51,7 +51,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+            return response()->json(['message' => 'Produto não encontrado'], 404);
         }
 
         $product->delete();

@@ -28,7 +28,7 @@ class SaleController extends Controller
             return response()->json($sale);
         }
 
-        return response()->json(['message' => 'Sale not found'], 404);
+        return response()->json(['message' => 'Venda não encontrada'], 404);
     }
 
     public function update(UpdateSaleRequest $request, $id)
@@ -36,7 +36,7 @@ class SaleController extends Controller
         $sale = Sale::find($id);
 
         if (!$sale) {
-            return response()->json(['message' => 'Sale not found'], 404);
+            return response()->json(['message' => 'Venda não encontrada'], 404);
         }
 
         $sale->update($request->validated());
@@ -48,7 +48,7 @@ class SaleController extends Controller
         $sale = Sale::find($id);
 
         if (!$sale) {
-            return response()->json(['message' => 'Sale not found'], 404);
+            return response()->json(['message' => 'Venda não encontrada'], 404);
         }
 
         $sale->delete();

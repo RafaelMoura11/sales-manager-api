@@ -29,7 +29,7 @@ class CustomerController extends Controller
             return response()->json($customer);
         }
 
-        return response()->json(['message' => 'Customer not found'], 404);
+        return response()->json(['message' => 'Cliente não encontrado'], 404);
     }
 
     public function update(UpdateCustomerRequest $request, $id)
@@ -37,7 +37,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
 
         if (!$customer) {
-            return response()->json(['message' => 'Customer not found'], 404);
+            return response()->json(['message' => 'Cliente não encontrado'], 404);
         }
 
         $customer->update($request->all());
@@ -48,9 +48,9 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         if (!$customer) {
-            return response()->json(['message' => 'Customer not found'], 404);
+            return response()->json(['message' => 'Cliente não encontrado'], 404);
         }
         $customer->delete();
-        return response()->json(['message' => 'Customer deleted successfully']);
+        return response()->json(['message' => 'Cliente deletado com sucesso']);
     }
 }
