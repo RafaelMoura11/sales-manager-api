@@ -33,14 +33,12 @@ class UserController extends Controller
             ]);
             DB::commit();
             return response()->json([
-                'status' => true,
                 'user' => $user,
                 'message' => "Usuário cadastrado com sucesso."
             ], 201);
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
-                'status' => false,
                 'message' => "Usuário não cadastrado.",
                 'error' => $e->getMessage()
             ], 400);
@@ -58,14 +56,12 @@ class UserController extends Controller
             ]);
             DB::commit();
             return response()->json([
-                'status' => true,
                 'user' => $user,
                 'message' => "Usuário atualizado com sucesso."
             ], 200);
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
-                'status' => false,
                 'message' => "Usuário não atualizado.",
                 'error' => $e->getMessage()
             ], 400);
@@ -77,12 +73,10 @@ class UserController extends Controller
             $user = User::where('cpf', $request->cpf)->firstOrFail();
             $user->delete();
             return response()->json([
-                'status' => true,
                 'message' => "Usuário deletado com sucesso."
             ], 200);
         } catch(Exception $e) {
             return response()->json([
-                'status' => false,
                 'message' => "Usuário não apagado.",
                 'error' => $e->getMessage()
             ], 400);
@@ -94,13 +88,11 @@ class UserController extends Controller
             $user = Auth::user();
             $token = $request->user()->createToken('api-token')->plainTextToken;
             return response()->json([
-                'status' => true,
                 'token' => $token,
                 'message' => "Logado :)"
             ]);
         } else {
             return response()->json([
-                'status' => false,
                 'message' => "Email e/ou senha incorreto(s)."
             ]);
         }
@@ -111,13 +103,11 @@ class UserController extends Controller
             $user = User::where('cpf', $request->cpf)->firstOrFail();
             $user->tokens()->delete();
             return response()->json([
-                'status' => true,
                 'message' => "Usuário deslogado com sucesso.",
             ], 200);
 
         } catch(Exception $e) {
             return response()->json([
-                'status' => false,
                 'message' => "Usuário não foi deslogado.",
                 'error' => $e->getMessage()
             ], 400);
