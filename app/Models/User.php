@@ -1,6 +1,5 @@
 <?php
 
-// app/Models/User.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +14,13 @@ class User extends Authenticatable
     protected $primaryKey = 'cpf';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['cpf', 'name', 'email', 'password'];
+
+    protected $fillable = [
+        'cpf',
+        'name',
+        'email',
+        'password',
+    ];
 
     protected $hidden = [
         'password',
@@ -25,4 +30,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'user_cpf', 'cpf');
+    }
 }
