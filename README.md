@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto foi desenvolvido em Laravel 11 com PHP 8.3.6, utilizando o Laravel Sanctum para gerenciamento de tokens de usuário. O sistema foi configurado com Xampp no Linux Ubuntu 22.04 LTS. O objetivo é permitir que funcionários de uma loja física possam gerenciar produtos, clientes e vendas, com a assistência do funcionário que tem acesso ao sistema.
+Este projeto foi desenvolvido em Laravel 11 com PHP 8.3.6, utilizando o Laravel Sanctum para gerenciamento de tokens de usuário. O sistema foi configurado com Xampp no Linux Ubuntu 22.04 LTS. O objetivo é permitir que funcionários de uma loja física possam gerenciar produtos, clientes e vendas, com a assistência do funcionário que tem acesso ao sistema. Eu optei em colocar o CPF como chave estrangeira nos funcionários (usuários do sistema) para ter a unicidade garantida, visto que é um identificador único no Brasil. Entretanto, achei melhor privar os clientes de colocar dados mais sensíveis como o CPF, então deixei os seus dados mais simplificados para na hora da venda não precisar de várias informações.
 
 ## Tecnologias Utilizadas
 
