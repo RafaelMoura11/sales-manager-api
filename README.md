@@ -75,7 +75,13 @@ Este projeto foi desenvolvido em Laravel 11 com PHP 8.3.6, utilizando o Laravel 
     php artisan db:seed
     ```
 
+8. **Inicie o Servidor localmente:**:
 
+    ```bash
+    php artisan serve
+    ```
+
+Lembre-se que o projeto estará rodando localmente na porta 8000
 
 ## Endpoints da API
 
